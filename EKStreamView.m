@@ -94,6 +94,16 @@
     return self;
 }
 
+- (NSArray *)visibleCells;
+{
+    NSMutableArray *cells = [NSMutableArray arrayWithCapacity:visibleCellInfo.count];
+    for (EKStreamViewCellInfo *cellInfo in visibleCellInfo) {
+        if (cellInfo.cell)
+            [cells addObject:cellInfo.cell];
+    }
+    return cells;
+}
+
 
 - (void)reloadData
 {

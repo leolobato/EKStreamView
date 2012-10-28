@@ -82,6 +82,7 @@ typedef enum {
 
 @property (nonatomic, readonly) UIView *headerView, *footerView;
 @property (nonatomic, readonly) UIView *contentView;
+@property (nonatomic, readonly) NSArray *visibleCells;
 
 - (id<EKResusableCell>)dequeueReusableCellWithIdentifier:(NSString *)identifier;
 - (void)reloadData;
