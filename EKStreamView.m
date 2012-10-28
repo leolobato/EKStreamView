@@ -62,6 +62,20 @@
 @synthesize delegate, visibleCellInfo, cellCache, cellPadding, columnPadding;
 @synthesize headerView, footerView, contentView;
 
+- (void)dealloc
+{
+    [delegateObj release];
+    [visibleCellInfo release];
+    [cellCache release];
+    [cellHeightsByIndex release];
+    [cellHeightsByColumn release];
+    [rectsForCells release];
+    [infoForCells release];
+    [contentView release];
+    
+    [super dealloc];
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
