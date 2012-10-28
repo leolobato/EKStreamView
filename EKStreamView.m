@@ -39,8 +39,8 @@
 - (NSSet *)getVisibleCellInfo;
 - (void)layoutCellWithCellInfo:(EKStreamViewCellInfo *)info;
 
-@property (nonatomic) NSSet *visibleCellInfo;
-@property (nonatomic) NSMutableDictionary *cellCache;
+@property (nonatomic, retain) NSSet *visibleCellInfo;
+@property (nonatomic, retain) NSMutableDictionary *cellCache;
 
 @end
 
@@ -150,7 +150,7 @@
         NSMutableArray *cellHeightsInCol = [cellHeightsByColumn objectAtIndex:shortestCol];
         [cellHeightsInCol addObject:[NSNumber numberWithFloat:height]];
         NSMutableArray *rectsForCellsInCol = [rectsForCells objectAtIndex:shortestCol];
-        EKStreamViewCellInfo *info = [EKStreamViewCellInfo new];
+        EKStreamViewCellInfo *info = [[[EKStreamViewCellInfo alloc] init] autorelease];
         info.frame = CGRectMake(cellX[shortestCol], columnHeights[shortestCol] + cellPadding, columnWidth, height);
         info.index = i;
         [rectsForCellsInCol addObject:info];
@@ -161,7 +161,8 @@
     
     
     // determine the visible cells' range
-    visibleCellInfo = [self getVisibleCellInfo];
+    [visibleCellInfo release];
+    visibleCellInfo = [[self getVisibleCellInfo] retain];
     
     // draw the visible cells
     
@@ -202,7 +203,7 @@
     NSMutableArray *cellArray = [cellCache objectForKey:identifier];
     id<EKResusableCell> cell = nil;
     if ([cellArray count] > 0) {
-        cell = [cellArray lastObject];
+        cell = [[[cellArray lastObject] retain] autorelease];
         [cellArray removeLastObject];
     } 
     
